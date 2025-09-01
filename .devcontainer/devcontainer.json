@@ -1,0 +1,52 @@
+{
+    "name": "C++23 Dev (GCC 14.3.0)",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "."
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest",
+            "ppa": "false"
+        }
+    },
+    "capAdd": [
+        "SYS_PTRACE"
+    ],
+    "securityOpt": [
+        "seccomp=unconfined"
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "clangd.path": "/usr/bin/clangd",
+                "clangd.arguments": [
+                    "--background-index",
+                    "--compile-commands-dir=${workspaceFolder}/build",
+                    "--completion-style=detailed",
+                    "--header-insertion=iwyu",
+                    "--all-scopes-completion",
+                    "--pch-storage=memory",
+                    "--clang-tidy",
+                    "--cross-file-rename",
+                    "--fallback-style=Google",
+                    "--function-arg-placeholders",
+                    "--suggest-missing-includes",
+                    "-j=4",
+                    "--query-driver=/usr/local/bin/g++",
+                    "--log=verbose",
+                    "--pretty",
+                    "--enable-config"
+                ],
+                "editor.formatOnSave": true,
+                "files.eol": "\n"
+            },
+            "extensions": [
+                "llvm-vs-code-extensions.vscode-clangd",
+                "ms-vscode.cmake-tools"
+            ]
+        }
+    },
+    "forwardPorts": [],
+    "postCreateCommand": "gcc -v"
+}
